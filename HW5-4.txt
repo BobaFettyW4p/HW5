@@ -1,0 +1,6 @@
+Since `int const` and `const int` are functionally identical, it means choosing one to use is largely a matter of preference and ensuring your code is as easy to read as possible.
+If you are working on a legacy codebase, I would generally prefer to follow existing idioms, i.e. if "const int" is already in use, I would follow that paradigm.
+However, if I working on developing a new codebase (such as these homework assignments), I would opt to use int const.
+Since it is the agreed-upon community standard, this makes my code easier to read by others.
+Since const is a modification of int, I think it's important to lead with the type (which is present in all declarations) before the modification const/constexpr, which will only be present in a subset of declarations.
+

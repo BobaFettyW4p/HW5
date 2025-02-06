@@ -4,7 +4,7 @@
 #include <sstream>
 
 //This creates a mutex object for std::cout
-//This is necessary to ensure that all 3 threads do not write to std::cout at the same time and create garbled output
+//This is necessary to ensure that all 3 threads do not attempt to write to std::cout at the same time
 //This is also created outside of either function to ensure that all threads can access it
 std::mutex coutMutex;
 
@@ -15,7 +15,7 @@ std::mutex coutMutex;
  * This function runs a loop from 1 to 100, and in each iteraqtion, it prints the ID of the thread and the number of times it has been called, as specified in the requirements 
  * It utilizes a mutex and a lock guard to ensure that only one thread can write to std::cout at a time, both yielding thread safety and preventing interleaving or garbled output
  * We also use std::ostringstream to construct the string before it is printed to std::cout, which is more efficient than using std::cout directly
- * As an added benefit, this minimizes the time any individual thread holds the lock
+ * It accomplishes this by minimizing the time any individual thread holds the lock
  * which improves performance, reduces the likelihood of deadlocks, and prevents interleaving output from different threads
  * 
  * @return void

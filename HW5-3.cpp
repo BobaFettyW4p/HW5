@@ -4,6 +4,15 @@
 #include <sstream>
 using namespace mpcs51044;
 
+//This is a debug program for my stack class, located in stack.h
+//It has a function StackTest that accepts a stack object, and tests all of it's methods sequentially
+//Within the main function, we create a stack object and run StackTest() through 2 separate threads
+//The output will run through the methods of the stack class, and will be interleaved between the two threads
+//Additionally, we are leveraging std::ostringstream to construct the string before it is printed to std::cout
+//This is more efficient than using std::cout directly, as it minimizes the time any individual thread holds the lock
+//and has the added benefit of ensuring that our output does not get garbled by interleaving output from different threads
+
+
 void StackTest(Stack<int>& stack) {
 
     //initializing an oss object

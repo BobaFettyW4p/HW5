@@ -5,7 +5,7 @@
 
 //This creates a mutex object for std::cout
 //This is necessary to ensure that all 3 threads do not write to std::cout at the same time and create garbled output
-//This is also created as a static object as opposed to in either the main() function or the CountToOneHundred() function to ensure that all threads can access it
+//This is also created outside of either function to ensure that all threads can access it
 std::mutex coutMutex;
 
 
@@ -35,7 +35,7 @@ void CountToOneHundred() {
  * @brief Main function to create and join 3 threads.
  *
  * This function creates 3 threads, each of which calls the CountToOneHundred() function
- * It then joins each of the threads to ensure that the main thread waits for all 3 threads to finish before exiting
+ * It then joins each of the threads to ensure that the main() function waits for all 3 threads to finish before exiting
  * 
  * @return int 
  */

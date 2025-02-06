@@ -4,8 +4,7 @@
 #include <sstream>
 
 //This creates a mutex object for std::cout
-//This is necessary to ensure that all 3 threads do not attempt to write to std::cout at the same time
-//This is also created outside of either function to ensure that all threads can access it
+//This is created outside of either function to ensure that all threads can access it
 std::mutex coutMutex;
 
 

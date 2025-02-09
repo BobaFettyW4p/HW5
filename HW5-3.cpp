@@ -12,7 +12,11 @@ using namespace mpcs51044;
 //This is more efficient than using std::cout directly, as it minimizes the time any individual thread holds the lock
 //and has the added benefit of ensuring that our output does not get garbled by interleaving output from different threads
 
-
+/**
+ * @brief A debug function that tests the push, pop, peek, and isEmpty methods of the stack class
+ * This function creates a stack object, and then tests the push, pop, peek, and isEmpty methods sequentially
+ * It then prints the results to the console
+ */
 void StackTest(Stack<int>& stack) {
 
     //initializing an oss object
@@ -23,13 +27,10 @@ void StackTest(Stack<int>& stack) {
     stack.push(20);
     stack.push(30);
 
-    //Test size()  method
     oss << "Size of stack: " << stack.size() << " from thread " << std::this_thread::get_id() << "\n"; // Should print 3
     std::cout << oss.str();
     oss.str("");
     oss.clear();
-
-    // Test popping elements from the stack
     oss << "Popped: " << stack.pop() << " from thread " << std::this_thread::get_id() << "\n"; // Should print 30
     std::cout << oss.str();
         oss.str("");
@@ -39,27 +40,18 @@ void StackTest(Stack<int>& stack) {
     std::cout << oss.str();
         oss.str("");
     oss.clear();
-
-
-    // Test peeking the top element
     oss << "Peeking at: " << stack.peek() << " from thread " << std::this_thread::get_id() << "\n"; // Should print 10
     std::cout << oss.str();
         oss.str("");
     oss.clear();
-
-    // Test if the stack is empty
     oss << "Is stack empty? " << (stack.isEmpty() ? "Yes" : "No") << " from thread " << std::this_thread::get_id() << "\n"; // Should print No
     std::cout << oss.str();
         oss.str("");
     oss.clear();
-
-    // Test popping the last element
     oss << "Popped: " << stack.pop() << " from thread " << std::this_thread::get_id() << "\n"; // Should print 10
     std::cout << oss.str();
         oss.str("");
     oss.clear();
-
-    // Test if the stack is empty again
     oss << "Is stack empty? " << (stack.isEmpty() ? "Yes" : "No") << " from thread " << std::this_thread::get_id() << "\n"; // Should print Yes
     std::cout << oss.str();
         oss.str("");
@@ -67,9 +59,29 @@ void StackTest(Stack<int>& stack) {
 
 }
 
+/**
+ * @brief A debug function that tests the initializer list constructor of the stack class
+ * This function creates a stack object with an initializer list of values, and then tests the size() and pop() methods
+ * It then prints the results to the console
+ */
+void InitializerListTest() {
+    std::ostringstream oss;
+    Stack<int> stack = {100, 200, 300};
+    oss << "Size of stack: " << stack.size() << "\n";
+    std::cout << oss.str();
+    oss.str("");
+    oss.clear();
+    oss << "Popping elements:\n";
+    oss << "First pop: " << stack.pop() << " (should be 300)\n";
+    oss << "Second pop: " << stack.pop() << " (should be 200)\n";
+    oss << "Third pop: " << stack.pop() << " (should be 100)\n";
+    std::cout << oss.str();
+    
+}
+
 int main() { 
     Stack<int> stack;
-
+    InitializerListTest();
     //running StackTest() threaded
     std::jthread thread1(StackTest, std::ref(stack));
     std::jthread thread2(StackTest, std::ref(stack));
